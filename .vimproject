@@ -1,6 +1,5 @@
 CLLE=/$PWD filter="*.rb *.rake Rakefile *.rdoc *.R *.sh *.js *.haml *.sass *.txt *.conf" {
- bin=bin filter="*"{
- }
+ workflow.rb
  lib=lib {
   rbbt=rbbt{
    sources=sources{
