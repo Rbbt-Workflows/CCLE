@@ -1,0 +1,16 @@
+CLLE=/$PWD filter="*.rb *.rake Rakefile *.rdoc *.R *.sh *.js *.haml *.sass *.txt *.conf" {
+ bin=bin filter="*"{
+ }
+ lib=lib {
+  rbbt=rbbt{
+   sources=sources{
+    CCLE.rb
+   }
+  }
+ }
+ test=test {
+  test_helper.rb
+ }
+ data=data filter="*"{
+ }
+}
