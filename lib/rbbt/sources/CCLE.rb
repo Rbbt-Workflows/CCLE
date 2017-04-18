@@ -27,7 +27,7 @@ module CCLE
     url = "https://portals.broadinstitute.org/ccle/downloadFile/DefaultSystemRoot/exp_10/ds_21/CCLE_Expression_Entrez_2012-09-29.gct?downloadff=true&fileId=6763"
     io = Open.open(url, :wget_options => {"--no-check-certificate" => true})
     io2 = CMD.cmd('tail -n +3 | cut -f 2-', :in => io, :pipe => true)
-    tsv = TSV.open(io2, :type => :double, :merge => true, :header_hash => '', :cast => :to_f)
+    tsv = TSV.open(io2, :type => :list, :merge => true, :header_hash => '', :cast => :to_f)
     tsv.key_field = "Associated Gene Name"
     tsv.to_s
   end
@@ -65,7 +65,7 @@ module CCLE
   CCLE.claim CCLE.drug_profiles, :proc do  |filename|
     url = "https://portals.broadinstitute.org/ccle/downloadFile/DefaultSystemRoot/exp_10/ds_27/CCLE_NP24.2009_Drug_data_2015.02.24.csv?downloadff=true&fileId=20777"
     io = Open.open(url, :wget_options => {"--no-check-certificate" => true})
-    tsv = TSV.open(io, :type => :double, :sep => ',', :header_hash => '', :fix => Proc.new{|l| l.gsub(/"[^"]+"/){|p| p.gsub(',',"|").gsub('"','')}} )
+    tsv = TSV.open(io, :type => :double, :merge => true, :sep => ',', :header_hash => '', :fix => Proc.new{|l| l.gsub(/"[^"]+"/){|p| p.gsub(',',"|").gsub('"','')}} )
     tsv.to_s
   end
 
@@ -81,5 +81,5 @@ end
 
 Log.severity = 0
 
-Log.tsv CCLE.cell_line_binary.produce(true).tsv if __FILE__ == $0
+Log.tsv CCLE.drug_profiles.produce(true).tsv if __FILE__ == $0
 
