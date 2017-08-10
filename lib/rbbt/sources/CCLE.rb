@@ -79,7 +79,9 @@ module CCLE
 
 end
 
-Log.severity = 0
+Log.with_severity 0 do
 
-Log.tsv CCLE.drug_profiles.produce(true).tsv if __FILE__ == $0
+  Log.tsv CCLE.drug_profiles.produce(true).tsv 
+
+end if __FILE__ == $0
 
